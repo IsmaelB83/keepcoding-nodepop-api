@@ -1,0 +1,42 @@
+{
+  "name": "practica-nodejs-keepcoding",
+  "version": "1.0.0",
+  "description": "Creación de una API para venta de artículos por internet (tipo wallapop)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.keepcoding.io:ismaelb83/practica-node.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongoose",
+    "api",
+    "apirest",
+    "restfull",
+    "database"
+  ],
+  "author": "Ismael Bernal",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "moment": "^2.24.0",
+    "mongoose": "^5.6.4",
+    "morgan": "^1.9.1",
+    "simple-node-logger": "^18.12.23",
+    "slug": "^1.1.0"
+  }
+}
