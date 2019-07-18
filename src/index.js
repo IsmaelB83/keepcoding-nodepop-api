@@ -6,11 +6,18 @@ const { config } = require('./config');
 const database = require('./database');
 const server = require('./server');
 
+// Crear server y arrancarlo
+const app = server(express());
+initServer()
 
-// Función asincrona para inicializar el servidor
+/**
+ * Función asincrona para inicializar el servidor
+ */
 async function initServer() {
     // Base de datos
     await database.connectToMongo();
+    await database.deleteCollection();
+    await database.createCollection();
     // Servidor HTTP
     try {
         const httpServer = http.createServer(app);
@@ -22,8 +29,3 @@ async function initServer() {
         log.fatal(error);
     }
 }
-
-
-// Crear server y arrancarlo
-const app = server(express());
-initServer();

@@ -1,4 +1,3 @@
 module.exports = {
-    ItemCtrl: require('./Item'),
-    TagCtrl: require('./Tag')
+  ItemCtrl: require('./Item'),
 }

@@ -4,7 +4,8 @@
   "description": "Creación de una API para venta de artículos por internet (tipo wallapop)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/index.js",
+    "debug": "nodemon ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,8 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "ejs": "^2.6.2",
     "express": "^4.17.1",
     "moment": "^2.24.0",
     "mongoose": "^5.6.4",
