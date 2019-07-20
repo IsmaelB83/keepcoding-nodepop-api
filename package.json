@@ -4,6 +4,7 @@
   "description": "Creación de una API para venta de artículos por internet (tipo wallapop)",
   "main": "index.js",
   "scripts": {
+    "init": "node ./src/database/initDB.js",
     "start": "node ./src/index.js",
     "debug": "nodemon ./src/index.js"
   },

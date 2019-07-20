@@ -6,11 +6,16 @@ const ctrl = {};
 ctrl.select = async (req, res, next) => {
     try {
         let items = await Item.find({});
-        res.json({
+        res.render('index.ejs', {
+            status: 'ok',
+            number: items.length,
+            items: items
+        });
+        /*res.json({
             status: 'ok',
             number: items.length,
             result: items
-        });
+        });*/
     } catch (error) {
         // Log incontrolado
         log.fatal(`Error incontrolado: ${error}`);

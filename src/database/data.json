@@ -1,45 +1,110 @@
 {  
-    "0001":{  
-       "name":"PS4 Pro",
-       "price":200.99,
-       "type":"buy",
-       "photo":"https://media.wired.com/photos/5a99f809b4bf6c3e4d405abc/master/pass/PS4-Pro-SOURCE-Sony.jpg",
-       "tags":[  
-          "lifestyle"
-       ],
-       "active":true
-    },
-    "0002":{  
-       "name":"PS4",
-       "price":170.05,
-       "type":"sell",
-       "photo":"https://gamesngadget.com/wp-content/uploads/2018/11/ps4.0.jpg",
-       "tags":[  
-          "lifestyle"
-       ],
-       "active":true
-    },
-    "0003":{  
-        "name":"The witcher 3",
-        "price":25.50,
-        "type":"sell",
-        "photo":"https://i5.walmartimages.ca/images/Large/530/472/999999-883929530472.jpg",
-        "tags":[  
-           "lifestyle",
-           "mobile"
-        ],
-        "active":true
-     },
-     "0004":{  
-      "name":"Iphone X",
-      "price":500.99,
-      "type":"sell",
-      "photo":"https://cdn.shopify.com/s/files/1/0081/9131/1968/products/Apple-iPhone-X-256GB-Silver_1_480x384.jpg?v=1563072079",
-      "tags":[  
-         "lifestyle",
-         "work",
-         "mobile"
-      ],
-      "active":true
-   }
+   "anuncios": [
+      {  
+         "name":"PS4 Pro",
+         "price":200.99,
+         "type":"buy",
+         "photo":"/public/images/ps4pro.jpg",
+         "tags":[  
+            "lifestyle"
+         ],
+         "active":true
+      },
+      {  
+         "name":"XBOX One X",
+         "price":170.05,
+         "type":"sell",
+         "photo":"/public/images/xbox.jpg",
+         "tags":[  
+            "lifestyle"
+         ],
+         "active":true
+      },
+      {  
+         "name":"Raton Razer Mamba (1 año de uso)",
+         "price":35.50,
+         "type":"sell",
+         "photo":"/public/images/ratonmamba.jpg",
+         "tags":[  
+            "lifestyle",
+            "work",
+            "mobile"
+         ],
+         "active":true
+      },
+      {  
+         "name":"Teclado Razer Chroma",
+         "price":70.00,
+         "type":"buy",
+         "photo":"/public/images/tecladorazer.jpg",
+         "tags":[  
+            "lifestyle",
+            "work",
+            "mobile"
+         ],
+         "active":true
+      },
+      {  
+         "name":"Tarjeta Gráfica 1080ti",
+         "price":400.00,
+         "type":"buy",
+         "photo":"/public/images/1080ti.jpg",
+         "tags":[  
+            "lifestyle",
+            "work"
+         ],
+         "active":true
+      },
+      {  
+         "name":"PC Gaming (vendo por no tener tiempo para jugar)",
+         "price":700.00,
+         "type":"sell",
+         "photo":"/public/images/pcgaming.jpg",
+         "tags":[  
+            "lifestyle",
+            "work"
+         ],
+         "active":true
+      },
+      {  
+         "name":"Apartamento en Marbella (Primera linea de playa)",
+         "price":5000000.00,
+         "type":"sell",
+         "photo":"/public/images/apartamento.jpg",
+         "tags":[  
+            "lifestyle"
+         ],
+         "active":true
+      },
+      {  
+         "name":"Calleras crossfit",
+         "price": 15,
+         "type":"buy",
+         "photo":"/public/images/calleras.jpg",
+         "tags":[  
+            "lifestyle"
+         ],
+         "active":true
+      },
+      {  
+         "name":"Comba (soy el de las calleras)",
+         "price": 8,
+         "type":"buy",
+         "photo":"/public/images/comba.jpg",
+         "tags":[  
+            "lifestyle"
+         ],
+         "active":true
+      },
+      {  
+         "name":"BMW X6 M (vendo a juego con apartamento en Marbella)",
+         "price": 40000.00,
+         "type":"sell",
+         "photo":"/public/images/x6.jpg",
+         "tags":[  
+            "lifestyle"
+         ],
+         "active":true
+      }
+   ]
  }

@@ -14,12 +14,10 @@ initServer()
  * Función asincrona para inicializar el servidor
  */
 async function initServer() {
-    // Base de datos
-    await database.connectToMongo();
-    await database.deleteCollection();
-    await database.createCollection();
-    // Servidor HTTP
     try {
+        // Conectar a BD
+        await database.connectToMongo(config.mongodb);
+        // Iniciliazar el servidor
         const httpServer = http.createServer(app);
         httpServer.listen(config.ports[config.http_type], () => {
             log.info(`HTTP OK - Server running on port ${config.ports[config.http_type]}`);
