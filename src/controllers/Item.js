@@ -1,23 +1,25 @@
 // Own imports
-const { Item } = require('../models');
+const Item = require('../models/Item');
 
 const ctrl = {};
 
 ctrl.select = async (req, res, next) => {
     try {
-        let items = await Item.find({});
-        res.render('index.ejs', {
-            status: 'ok',
-            number: items.length,
-            items: items
+        Item.list(req.query, function(err,result) {
+            // Error
+            if (err) {
+                next(err);
+                return;
+            }
+            // Ok
+            res.json({
+                status: 'ok',
+                number: result.length,
+                result: result
+            });
         });
-        /*res.json({
-            status: 'ok',
-            number: items.length,
-            result: items
-        });*/
     } catch (error) {
-        // Log incontrolado
+        // Error no controlado
         log.fatal(`Error incontrolado: ${error}`);
         res.json({
             status: 'ko',
@@ -49,7 +51,7 @@ ctrl.selectOne = async (req, res, next) => {
             });
         }
     } catch (error) {
-        // Log incontrolado
+        // Error no controlado
         log.fatal(`Error incontrolado: ${error}`);
         res.json({
             status: 'ko',
@@ -68,7 +70,7 @@ ctrl.create = async (req, res, next) => {
             result: item
         });
     } catch (error) {
-        // Log incontrolado
+        // Error no controlado
         log.fatal(`Error incontrolado: ${error}`);
         res.json({
             status: 'ko',
@@ -113,7 +115,7 @@ ctrl.update = async (req, res, next) => {
             });
         }
     } catch (error) {
-        // Log incontrolado
+        // Error no controlado
         log.fatal(`Error incontrolado: ${error}`);
         res.json({
             status: 'error',

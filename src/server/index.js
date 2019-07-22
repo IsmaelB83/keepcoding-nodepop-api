@@ -3,9 +3,11 @@ const path = require('path');
 const morgan = require('morgan');
 const express = require('express');
 const bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 // Own imports
-const router = require('../routes');
+const routerWeb = require('../routes/Web');
+const routerItem = require('../routes/Item');
+
 
 module.exports = function(app) {
     // View engine settings (ejs)
@@ -20,7 +22,8 @@ module.exports = function(app) {
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(cookieParser());
     // Routers
-    app.use('/', router());
+    app.use('/', routerWeb());
+    app.use('/api', routerItem());
     // catch 404 and forward to error handler
     app.use(function(req, res, next) {
         next(createError(404));

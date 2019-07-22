@@ -2,7 +2,7 @@
 const express = require('express');
 const http = require('http');
 // Own imports
-const { config } = require('./config');
+const Config = require('./config');
 const database = require('./database');
 const server = require('./server');
 
@@ -16,13 +16,14 @@ initServer()
 async function initServer() {
     try {
         // Conectar a BD
-        await database.connectToMongo(config.mongodb);
+        await database.connectToMongo(Config.mongodb);
         // Iniciliazar el servidor
         const httpServer = http.createServer(app);
-        httpServer.listen(config.ports[config.http_type], () => {
-            log.info(`HTTP OK - Server running on port ${config.ports[config.http_type]}`);
+        httpServer.listen(Config.ports[Config.http_type], () => {
+            log.info(`HTTP OK - Server running on port ${Config.ports[Config.http_type]}`);
         });        
     } catch (error) {
+        // Error no controlado
         log.fatal(`HTTP Error - Server not running: ${error.code} ${error.path}`);
         log.fatal(error);
     }

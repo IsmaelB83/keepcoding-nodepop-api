@@ -4,7 +4,7 @@
          "name":"PS4 Pro",
          "price":200.99,
          "type":"buy",
-         "photo":"/public/images/ps4pro.jpg",
+         "photo":"/public/images/anuncios/ps4pro.jpg",
          "tags":[  
             "lifestyle"
          ],
@@ -14,7 +14,7 @@
          "name":"XBOX One X",
          "price":170.05,
          "type":"sell",
-         "photo":"/public/images/xbox.jpg",
+         "photo":"/public/images/anuncios/xbox.jpg",
          "tags":[  
             "lifestyle"
          ],
@@ -24,7 +24,7 @@
          "name":"Raton Razer Mamba (1 año de uso)",
          "price":35.50,
          "type":"sell",
-         "photo":"/public/images/ratonmamba.jpg",
+         "photo":"/public/images/anuncios/ratonmamba.jpg",
          "tags":[  
             "lifestyle",
             "work",
@@ -36,7 +36,7 @@
          "name":"Teclado Razer Chroma",
          "price":70.00,
          "type":"buy",
-         "photo":"/public/images/tecladorazer.jpg",
+         "photo":"/public/images/anuncios/tecladorazer.jpg",
          "tags":[  
             "lifestyle",
             "work",
@@ -48,7 +48,7 @@
          "name":"Tarjeta Gráfica 1080ti",
          "price":400.00,
          "type":"buy",
-         "photo":"/public/images/1080ti.jpg",
+         "photo":"/public/images/anuncios/1080ti.jpg",
          "tags":[  
             "lifestyle",
             "work"
@@ -59,7 +59,7 @@
          "name":"PC Gaming (vendo por no tener tiempo para jugar)",
          "price":700.00,
          "type":"sell",
-         "photo":"/public/images/pcgaming.jpg",
+         "photo":"/public/images/anuncios/pcgaming.jpg",
          "tags":[  
             "lifestyle",
             "work"
@@ -70,7 +70,7 @@
          "name":"Apartamento en Marbella (Primera linea de playa)",
          "price":5000000.00,
          "type":"sell",
-         "photo":"/public/images/apartamento.jpg",
+         "photo":"/public/images/anuncios/apartamento.jpg",
          "tags":[  
             "lifestyle"
          ],
@@ -80,7 +80,7 @@
          "name":"Calleras crossfit",
          "price": 15,
          "type":"buy",
-         "photo":"/public/images/calleras.jpg",
+         "photo":"/public/images/anuncios/calleras.jpg",
          "tags":[  
             "lifestyle"
          ],
@@ -90,7 +90,7 @@
          "name":"Comba (soy el de las calleras)",
          "price": 8,
          "type":"buy",
-         "photo":"/public/images/comba.jpg",
+         "photo":"/public/images/anuncios/comba.jpg",
          "tags":[  
             "lifestyle"
          ],
@@ -100,9 +100,10 @@
          "name":"BMW X6 M (vendo a juego con apartamento en Marbella)",
          "price": 40000.00,
          "type":"sell",
-         "photo":"/public/images/x6.jpg",
+         "photo":"/public/images/anuncios/x6.jpg",
          "tags":[  
-            "lifestyle"
+            "lifestyle",
+            "motor"
          ],
          "active":true
       }

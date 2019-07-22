@@ -2,16 +2,52 @@
 <html>
   <head>
     <title>Nodepop</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/public/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   </head>
   <body>
-    <h1>Bienvenido a Nodepop</h1>
-    <p>A continuación puede ver todos los anuncios disponibles</p>
-    <% for(let i =0; i<items.length; i++) { %>
-      <li> 
-        <h2><%= items[i].name %> </h2>
-        <img src="<%= items[i].photo %>" />
-      </li>
-    <% } %>
+    <div class='container'>
+      <div class='row'>
+        <div class='col-12 text-center mt-4 mb-2'>
+          <h1>Bienvenido a Nodepop</h1>
+        </div>
+        <div class='col-12'>
+          <p>A continuación puede ver todos los anuncios disponibles</p>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-12 anuncios mb-4'>
+          <% if (locals.items) { %>
+            <% for(let i=0; i<items.length; i++) { %>
+              <% if (items[i].active) { %>
+                  <div class="card">
+                    <img src="<%= items[i].photo %>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase">
+                          <img src="<%= items[i].type === 'buy' ? '/public/images/buy.png' : '/public/images/sell.png' %>" class="card-icon" alt="icon">
+                          <%= items[i].name %> 
+                          <span><%= items[i].price %></span>
+                        </h5>
+                        <p class="card-text">
+                        <% for(let j=0; j<items[i].tags.length; j++) { %>
+                          <a href="/?tag=<%=items[i].tags[j]%>"><span class="badge badge-<%=items[i].tags[j]%>"><%=items[i].tags[j]%></span></a>
+                        <% } %>
+                        </p>
+                    </div>
+                    <div class="card-footer text-muted">
+                      <a href="#" class="btn btn-block btn-primary">Ver detalle</a>
+                      <small id="passwordHelpInline" class="text-muted">
+                        Anuncio creado <%= moment(items[i].createdAt).startOf('day').fromNow(); %>
+                      </small>
+                    </div>
+                  </div>
+              <% } %>
+            <% } %>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    
   </body>
 </html>
