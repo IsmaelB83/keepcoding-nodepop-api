@@ -12,6 +12,7 @@
       <div class='row'>
         <div class='col-12 text-center mt-4 mb-2'>
           <h1>Bienvenido a Nodepop</h1>
+          <a href="/">Home</a>
         </div>
         <div class='col-12'>
           <p>A continuación puede ver todos los anuncios disponibles con la búsqueda realizada</p>
@@ -23,7 +24,7 @@
             <% for(let i=0; i<items.length; i++) { %>
               <% if (items[i].active) { %>
                   <div class="card">
-                    <a href="/?type=<%=items[i].type%>">
+                    <a href="/?venta=<%=items[i].type==='sell'%>">
                       <img src="<%= items[i].type === 'buy' ? '/public/images/buy.png' : '/public/images/sell.png' %>" class="card-icon" alt="icon">
                     </a>
                     <img src="<%= items[i].photo %>" class="card-img-top" alt="...">

@@ -20,9 +20,7 @@
         <div class='col-xs-12 col-sm-6 col-lg-4 mb-4'>
           <% if (locals.item) { %>
             <div class="card">
-              <a href="/?type=<%=item.type%>">
-                <img src="<%= item.type === 'buy' ? '/public/images/buy.png' : '/public/images/sell.png' %>" class="card-icon" alt="icon">
-              </a>
+              <img src="<%= item.type === 'buy' ? '/public/images/buy.png' : '/public/images/sell.png' %>" class="card-icon" alt="icon">
               <img src="<%= item.photo %>" class="card-img-top" alt="...">
               <span class="price"><%= item.price.toFixed(2) %> €</span>
               <div class="card-body text-justify">
@@ -34,7 +32,7 @@
               <div class="card-footer text-muted py-1 px-2">
                 <p class="card-text mb-1">
                   <% for(let j=0; j<item.tags.length; j++) { %>
-                    <a href="/?tag=<%=item.tags[j]%>"><span class="badge badge-<%=item.tags[j]%>"><%=item.tags[j]%></span></a>
+                    <span class="badge badge-<%=item.tags[j]%>"><%=item.tags[j]%></span>
                   <% } %>
                 </p>
                 <small id="passwordHelpInline" class="text-muted">

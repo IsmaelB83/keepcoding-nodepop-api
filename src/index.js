@@ -16,7 +16,11 @@ initServer()
 async function initServer() {
     try {
         // Conectar a BD
-        await database.connectToMongo(Config.mongodb);
+        if (!await database.connectToMongo(Config.mongodb)) {
+            // Error fatal y cierro
+            log.fatal('Se cierra la aplicación dado que no es posible conectar a mongodb');
+            process.exit(1);
+        }
         // Iniciliazar el servidor
         const httpServer = http.createServer(app);
         httpServer.listen(Config.ports[Config.http_type], () => {

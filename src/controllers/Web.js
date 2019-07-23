@@ -10,15 +10,7 @@ moment.locale('es');
 ctrl.index = async (req, res, next) => {
     try {
         // Busco los anuncios en Mongo
-        let limit = req.query.limit || null;
-        let skip = req.query.skip || null;
-        let fields = req.query.fields || null;
-        let sort = req.query.sort || null;
-        let filter = {}
-        if (req.query.name) filter.name = { '$regex': req.query.name, '$options': 'i' };
-        if (req.query.type) filter.type = req.query.type.toLowerCase();
-        if (req.query.tag) filter.tags = req.query.tag.toLowerCase();
-        Item.list(filter, limit, skip, fields, sort, function(err,result) {
+        Item.list(req.query, function(err,result) {
             // Error
             if (err) {
                 res.render('err.ejs', {})

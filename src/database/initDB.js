@@ -14,21 +14,21 @@ initDB();
 async function initDB() {
     try {
         // Conecto a la base de datos
-        debugger;
         await database.connectToMongo(Config.mongodb);
         // Borro los datos de la colección de anuncion
-        await Item.deleteMany({});
+        await Item.deleteAll();
         // Creo los nuevos anuncios desde el json
         let dump = JSON.parse(fs.readFileSync('./src/database/data.json', 'utf8'));
         let items = [];
         for (let i = 0; i < dump.anuncios.length; i++) {
             items.push (new Item({...dump.anuncios[i]}));
         }
-        await Item.insertMany(items);
+        await Item.insertAll(items);
         log.info(`Base de datos inicializada con ${items.length} anuncios.`);
-        log.info(`Proceso de inicialización finalizado. Puede arrancar la API mediante "npm start".`);
+        log.info(`Proceso de inicialización finalizado. Puede arrancar la API mediante "npm start".`);        
     } catch (error) {
-        log.fatal('ERROR: No se ha inicializar la base de datos.');
+        // Error no controlado
+        log.fatal('ERROR incontrolado.');
         log.fatal(error);
     }
 }
