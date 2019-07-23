@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nodepop</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='/public/stylesheets/style.css' />
+    <link rel="icon" type="image/png" sizes="32x32" href="/public/images/favicon.png">
+  </head>
+  <body>
+    <div class='container'>
+      <div class='row'>
+        <div class='col-12 text-center mt-4 mb-2'>
+          <h1>Detalle del artículo</h1><a href="/">Volver </a>
+        </div>
+        <div class='col-12'>
+        </div>
+      </div>
+      <div class='row justify-content-center'>
+        <div class='col-xs-12 col-sm-6 col-lg-4 mb-4'>
+          <% if (locals.item) { %>
+            <div class="card">
+              <a href="/?type=<%=item.type%>">
+                <img src="<%= item.type === 'buy' ? '/public/images/buy.png' : '/public/images/sell.png' %>" class="card-icon" alt="icon">
+              </a>
+              <img src="<%= item.photo %>" class="card-img-top" alt="...">
+              <span class="price"><%= item.price.toFixed(2) %> €</span>
+              <div class="card-body text-justify">
+                  <h5 class="card-title text-uppercase mb-1 font-weight-bold">
+                    <%= item.name %> 
+                  </h5>
+                  <p class="card-text text-black-50"><small><%= item.description %></small></p>
+              </div>
+              <div class="card-footer text-muted py-1 px-2">
+                <p class="card-text mb-1">
+                  <% for(let j=0; j<item.tags.length; j++) { %>
+                    <a href="/?tag=<%=item.tags[j]%>"><span class="badge badge-<%=item.tags[j]%>"><%=item.tags[j]%></span></a>
+                  <% } %>
+                </p>
+                <small id="passwordHelpInline" class="text-muted">
+                  Anuncio creado <%= moment(item.createdAt).fromNow(); %>
+                </small>
+              </div>
+            </div>
+          <% } else { %>
+            <p class="font-weight-bold">No se ha encontrado ningun anuncio asociado a dicho ID</p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    
+  </body>
+</html>

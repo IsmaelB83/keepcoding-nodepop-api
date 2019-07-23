@@ -9,7 +9,11 @@ const ItemSchema = new Schema(
         /**
          * Nombre del articulo en compra/venta
          */
-        name: { type: String, required: true },
+        name: { type: String, required: true, max: 30, index: true },
+        /**
+         * Descripcion del articulo en venta
+         */
+        description: { type: String, max: 100 },
         /**
          * Precio del artículo
          */
@@ -17,7 +21,7 @@ const ItemSchema = new Schema(
         /**
          * Tipo de anuncio: compra o venta
          */
-        type: { type: String, enum: ['buy', 'sell'], required: true },
+        type: { type: String, enum: ['buy', 'sell'], required: true, index: true },
         /**
          * Foto del artículo
          */
@@ -25,7 +29,7 @@ const ItemSchema = new Schema(
         /**
          * Tags del anuncio
          */
-        tags: [{ type: String, enum: ['work', 'lifestyle', 'motor', 'mobile']}],
+        tags: [{ type: String, enum: ['work', 'lifestyle', 'motor', 'mobile'], index: true},],
         /**
          * Anuncio activo si(true)/no(false)
          */
@@ -41,18 +45,9 @@ const ItemSchema = new Schema(
 
 /**
  * Función estática para listar anuncios de la base de datos
- * @param {String} query Query a realizar a mongo sobre la colección Item
  * @param {String} callback Función a llamar al terminar la consulta
  */
-ItemSchema.statics.list = function(query, callback) {
-    // Monto la query, según sean los parametros pasados por el usuario en la query
-    let filter = {}
-    if (query.name) filter.name = query.name;
-    if (query.type) filter.type = query.type;
-    let limit = query.limit || null;
-    let skip = query.skip || null;
-    let fields = query.fields || null;
-    let sort = query.sort || null;
+ItemSchema.statics.list = function(filter, limit, skip, fields, sort, callback) {
     // Realizo la query a Mongo
     let query = Item.find(filter);
     query.limit(limit);
@@ -61,6 +56,12 @@ ItemSchema.statics.list = function(query, callback) {
     query.sort(sort);
     query.exec(callback);
 }
+
+/**
+ * Creo un indice compuesto por tipo de anuncio (buy/sell) + tags
+ */
+ItemSchema.index({ types: 1, tags: 1 });
+
 
 const Item = mongoose.model('Item', ItemSchema);
 module.exports = Item;
