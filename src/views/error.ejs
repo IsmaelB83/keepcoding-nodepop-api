@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Nodepop</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Error <%= err %></p>
+    <div class='container'>
+      <div class='row'>
+        <div class='col-12 text-center mt-4 mb-2'>
+          <h1>Error detectado</h1><a href="/">Volver </a>
+        </div>
+        <div class='col-12'>
+          <p><b><%= error.status %></b> <%= error.message %></p>
+        </div>
+      </div>
   </body>
 </html>

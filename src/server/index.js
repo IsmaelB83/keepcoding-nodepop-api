@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 // Own imports
 const routerWeb = require('../routes/Web');
-const routerItem = require('../routes/Item');
+const routerItem = require('../routes/apiv1/Item');
 
 
 module.exports = function(app) {
@@ -14,7 +14,7 @@ module.exports = function(app) {
     app.set('views', path.join(__dirname, '../views'));
     app.set('view engine', 'ejs');
     // Static files
-    app.use('/public', express.static('public'));
+    app.use(express.static('public'));
     // Middlewares
     app.use(morgan('dev'));
     app.use(express.urlencoded({extended: false}));
@@ -23,19 +23,21 @@ module.exports = function(app) {
     app.use(cookieParser());
     // Routers
     app.use('/', routerWeb());
-    app.use('/api', routerItem());
+    app.use('/apiv1', routerItem());
     // catch 404 and forward to error handler
     app.use(function(req, res, next) {
         next(createError(404));
     });
     // error handler
-    app.use(function(err, req, res, next) {
+    app.use(function(error, req, res, next) {
+        // status 500 si no se indica lo contrario
+        if (!error.status) error.status = 500;
         // set locals, only providing error in development
-        res.locals.message = err.message;
-        res.locals.error = req.app.get('env') === 'development' ? err : {};
+        res.locals.message = error.message;
+        res.locals.error = req.app.get('env') === 'development' ? error : {};
         // render the error page
-        res.status(err.status || 500);
-        res.render('error', {title: 'Error detectado', err});
+        res.status(error.status);
+        res.render('error', {error});
     });
     // Retorno la aplicación
     return app;

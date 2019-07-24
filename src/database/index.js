@@ -1,7 +1,7 @@
 // Import node modules
 const mongoose = require('mongoose');
 // Import own modules
-const { log } = require('../utils');
+const log = require('../utils/log');
 
 
 const database = {

@@ -2,14 +2,14 @@
 const SimpleNodeLogger = require('simple-node-logger');
 const Moment = require ('moment');
 
-// Create the logger with the specified configuration
+// Creo el logger con la configuración deseada
 options = {
     logFilePath:`./log/error.${Moment().format("YYYYMMDD")}.log`,
     timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
 },
 log = SimpleNodeLogger.createSimpleLogger(options);
-// This sets the log level to warn and suppresses debug and info messages.
+// Indico el nivel de mensajes que deseo almacenar
 log.setLevel('info');
 
-// Export the logger
+
 module.exports = log;

@@ -10,10 +10,10 @@ moment.locale('es');
 ctrl.index = async (req, res, next) => {
     try {
         // Busco los anuncios en Mongo
-        Item.list(req.query, function(err,result) {
+        Item.list(req.query, function(error,result) {
             // Error
-            if (err) {
-                res.render('err.ejs', {})
+            if (error) {
+                next({status: 500, message: error});
                 return;
             }
             // Ok
@@ -25,8 +25,8 @@ ctrl.index = async (req, res, next) => {
             });
         });
     } catch (error) {
-        // Error no controlado
         log.fatal(`Error incontrolado: ${error}`);
+        next({status: 500, message: error});
     }
 }
 
@@ -45,11 +45,10 @@ ctrl.detail = async (req, res, next) => {
                 return;
             }
         }
-        res.render('err.ejs', {})
+        next({status: 404, message: 'Not found'});
     } catch (error) {
-        // Error no controlado
         log.fatal(`Error incontrolado: ${error}`);
-        res.render('err.ejs', {error})
+        next({status: 500, message: error});
     }
 }
 

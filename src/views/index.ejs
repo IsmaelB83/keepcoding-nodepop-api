@@ -4,8 +4,8 @@
     <title>Nodepop</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-    <link rel='stylesheet' href='/public/stylesheets/style.css' />
-    <link rel="icon" type="image/png" sizes="32x32" href="/public/images/favicon.png">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   </head>
   <body>
     <div class='container'>
@@ -25,7 +25,7 @@
               <% if (items[i].active) { %>
                   <div class="card">
                     <a href="/?venta=<%=items[i].type==='sell'%>">
-                      <img src="<%= items[i].type === 'buy' ? '/public/images/buy.png' : '/public/images/sell.png' %>" class="card-icon" alt="icon">
+                      <img src="<%= items[i].type === 'buy' ? '/images/buy.png' : '/images/sell.png' %>" class="card-icon" alt="icon">
                     </a>
                     <img src="<%= items[i].photo %>" class="card-img-top" alt="...">
                     <span class="price"><%= items[i].price.toFixed(2) %> €</span>
