@@ -1,12 +1,12 @@
 # Practica del módulo de backend node.js de KeepCoding
 
 ### Contents
-- [Introduction](#introduction)
-- [Instalación y ejecución](#introduction)
-  - [Descarga](#rate-limit)
-  - [Instalación](#graphql)
-  - [Ejecución](#rest)
-- [REST API](#REST)
+- [Introduction](#INTRODUCCION)
+- [Instalación y ejecución](#INSTALACIÓN-Y-EJECUCIÓN)
+  - [Descarga](#Descarga)
+  - [Instalación](#Inicialización-de-base-de-datos)
+  - [Ejecución](#Ejecución)
+- [REST API](#REST-API)
   - [Anuncios](#Anuncios)
   - [Anuncios Schema](#Anuncios-schema)
   - [Obtener todos los anuncios](#Obtener-todos-los-anuncios)
@@ -17,7 +17,7 @@
 - [Web](#location)
   - [Ejemplo de vista de anuncios](#location-schema)
 
-## Introduction
+### INTRODUCCION
 
 Este proyecto proporciona una API sobre una base de datos sencilla de compra/venta de artículos de segunda mano.
 
@@ -26,10 +26,39 @@ obtener el listado completo de anuncios en compra/venta, así como el detalle de
 
 En este documento se detalla el modo de utilización tanto de la API como de la WEB creada.
 
+### INSTALACIÓN Y EJECUCIÓN
 
-## Instrucciones de uso:
+## Descarga
 
-### REST
+Para descargar este repositorio:
+```
+\downloads\git clone https://github.com/IsmaelB83/keepcoding-backend-node.git   (o bien con ssh)
+\downloads\git clone git@github.com:IsmaelB83/keepcoding-backend-node.git
+```
+
+## Instalación de modulos
+
+Utiliza npm install para instalar todas las dependencias de la aplicación
+```
+\downloads\keepcoding-backend-node\npm install
+```
+
+## Inicialización de base de datos
+
+Inicializa la base de datos mongo. Esto borrará la colección "item" de la base de datos mongo (nodepop), y creará los anuncios contenidos en
+\downloads\keepcoding-backend-node\src\database\data.json
+```
+\downloads\keepcoding-backend-node\npm run init
+```
+
+## Ejecución
+
+Para arrancar la API y la web utilizaremos npm start
+```
+\downloads\keepcoding-backend-node\npm start
+```
+
+### REST API
 
 ## Anuncios
 Hay un total de 10 anuncios en el script de carga proporcionado.
