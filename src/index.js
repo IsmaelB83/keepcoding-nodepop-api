@@ -4,7 +4,7 @@ const http = require('http');
 // Own imports
 const Config = require('./config');
 const database = require('./database');
-const server = require('./server');
+const server = require('./app');
 
 // Crear aplicación express y arrancar el server
 const app = server(express());

@@ -22,32 +22,30 @@
         <div class='col-12 anuncios mb-4'>
           <% if (locals.number && locals.number > 0) { %>
             <% for(let i=0; i<items.length; i++) { %>
-              <% if (items[i].active) { %>
-                  <div class="card">
-                    <a href="/?venta=<%=items[i].type==='sell'%>">
-                      <img src="<%= items[i].type === 'buy' ? '/images/buy.png' : '/images/sell.png' %>" class="card-icon" alt="icon">
-                    </a>
-                    <img src="<%= items[i].photo %>" class="card-img-top" alt="...">
-                    <span class="price"><%= items[i].price.toFixed(2) %> €</span>
-                    <div class="card-body text-justify">
-                        <h5 class="card-title text-uppercase mb-1 font-weight-bold">
-                          <%= items[i].name %> 
-                        </h5>
-                        <p class="card-text text-black-50"><small><%= items[i].description %></small></p>
-                    </div>
-                    <div class="card-footer text-muted py-1 px-2">
-                      <p class="card-text mb-1">
-                        <% for(let j=0; j<items[i].tags.length; j++) { %>
-                          <a href="/?tag=<%=items[i].tags[j]%>"><span class="badge badge-<%=items[i].tags[j]%>"><%=items[i].tags[j]%></span></a>
-                        <% } %>
-                      </p>
-                      <a href="/<%=items[i].id%>" class="btn btn-block btn-primary">Detalle</a>
-                      <small id="passwordHelpInline" class="text-muted">
-                        Anuncio creado <%= moment(items[i].createdAt).fromNow(); %>
-                      </small>
-                    </div>
-                  </div>
-              <% } %>
+              <div class="card">
+                <a href="/?venta=<%=items[i].type==='sell'%>">
+                  <img src="<%= items[i].type === 'buy' ? '/images/buy.png' : '/images/sell.png' %>" class="card-icon" alt="icon">
+                </a>
+                <img src="<%= items[i].photo %>" class="card-img-top" alt="...">
+                <span class="price"><%= items[i].price.toFixed(2) %> €</span>
+                <div class="card-body text-justify">
+                    <h5 class="card-title text-uppercase mb-1 font-weight-bold">
+                      <%= items[i].name %> 
+                    </h5>
+                    <p class="card-text text-black-50"><small><%= items[i].description %></small></p>
+                </div>
+                <div class="card-footer text-muted py-1 px-2">
+                  <p class="card-text mb-1">
+                    <% for(let j=0; j<items[i].tags.length; j++) { %>
+                      <a href="/?tag=<%=items[i].tags[j]%>"><span class="badge badge-<%=items[i].tags[j]%>"><%=items[i].tags[j]%></span></a>
+                    <% } %>
+                  </p>
+                  <a href="/<%=items[i].id%>" class="btn btn-block btn-primary">Detalle</a>
+                  <small id="passwordHelpInline" class="text-muted">
+                    Anuncio creado <%= moment(items[i].createdAt).fromNow(); %>
+                  </small>
+                </div>
+              </div>
             <% } %>
           <% } else { %>
             <p class="font-weight-bold">No hay resultados</p>

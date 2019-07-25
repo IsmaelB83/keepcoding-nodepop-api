@@ -4,14 +4,10 @@ const morgan = require('morgan');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-// Own imports
-const routerWeb = require('../routes/Web');
-const routerItem = require('../routes/apiv1/Item');
-
 
 module.exports = function(app) {
     // View engine settings (ejs)
-    app.set('views', path.join(__dirname, '../views'));
+    app.set('views', path.join(__dirname, './views'));
     app.set('view engine', 'ejs');
     // Static files
     app.use(express.static('public'));
@@ -22,8 +18,8 @@ module.exports = function(app) {
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(cookieParser());
     // Routers
-    app.use('/', routerWeb());
-    app.use('/apiv1', routerItem());
+    app.use('/', require('./routes/Web')());
+    app.use('/apiv1', require('./routes/apiv1/Item')());
     // catch 404 and forward to error handler
     app.use(function(req, res, next) {
         next(createError(404));
@@ -31,14 +27,29 @@ module.exports = function(app) {
     // error handler
     app.use(function(error, req, res, next) {
         // status 500 si no se indica lo contrario
-        if (!error.status) error.status = 500;
+        res.status(error.status || 500);
+        // Middleware de la API
+        if (isAPI(req)) {
+            res.json({
+                success: 'true', 
+                error: error.message
+            });
+            return;
+        }
         // set locals, only providing error in development
         res.locals.message = error.message;
         res.locals.error = req.app.get('env') === 'development' ? error : {};
         // render the error page
-        res.status(error.status);
         res.render('error', {error});
     });
     // Retorno la aplicación
     return app;
 };
+
+/**
+ * Chequea si la url de la que proviene el request es de la API o de la Vista 
+ * @param {Request} req Request que efectua la llamada al server
+ */
+function isAPI(req) {
+    return req.originalUrl.indexOf('/api') === 0;
+}

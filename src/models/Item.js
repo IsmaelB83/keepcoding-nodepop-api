@@ -29,11 +29,7 @@ const ItemSchema = new Schema(
         /**
         * Tags del anuncio
         */
-        tags: [{ type: String, enum: ['work', 'lifestyle', 'motor', 'mobile'], index: true},],
-        /**
-        * Anuncio activo si(true)/no(false)
-        */
-        active: { type: Boolean, required: true, default: true },
+        tags: [{ type: String, enum: ['work', 'lifestyle', 'motor', 'mobile'], index: true},]
     },
     {
         /**
@@ -47,6 +43,11 @@ const ItemSchema = new Schema(
 * Función estática para listar anuncios de la base de datos
 * @param {req.query} query Objecto req.query recibido desde la url
 * @param {function} callback Función a llamar al terminar la consulta
+*
+* Ejemplos de fields:
+* http://localhost:3001/apiv1/anuncios?fields=name%20type%20price%20-_id
+* http://localhost:3001/apiv1/anuncios?fields=name
+* http://localhost:3001/apiv1/anuncios?fields=-_id
 */
 ItemSchema.statics.list = function(query, callback) {
     try {
@@ -107,7 +108,7 @@ ItemSchema.statics.deleteAll = async function() {
 };
 
 /**
-* Función estática para insertar vairos anuncios al mismo tiempo
+* Función estática para insertar varios anuncios al mismo tiempo
 */
 ItemSchema.statics.insertAll = async function(items) {
     try {
@@ -116,7 +117,35 @@ ItemSchema.statics.insertAll = async function(items) {
         // Error no controlado
         log.fatal('Error insertando anuncios.');
         log.fatal(error);
-        process.exit(1);
+    }
+};
+
+/**
+* Función estática para actualizar los datos de un anuncio
+* @param {String} id ID que representa a un anuncio en MongoDB
+* @param {Item} newItem Objeto con los datos a modificar
+*/
+ItemSchema.statics.updateItem = async function(id, newItem) {
+    try {
+        // Busco algún anuncio con ese id
+        let item = await Item.findById(id);
+        if (item) {
+            // Si viene el parametro en el body lo sobreescribo
+            item.name = newItem.name?newItem.name:item.name;
+            item.price = newItem.price?newItem.price:item.price;
+            item.type = newItem.type?newItem.type:item.type;
+            item.photo = newItem.photo?newItem.photo:item.photo;
+            item.tags = newItem.tags?newItem.tags:item.tags;
+            item.description = newItem.description?newItem.description:item.description;
+            // Salvo datos en mongo
+            item = await item.save();
+            return item;
+        }
+        return false;
+    } catch (error) {
+        // Error no controlado
+        log.fatal('Error insertando anuncio.');
+        log.fatal(error);
     }
 };
 

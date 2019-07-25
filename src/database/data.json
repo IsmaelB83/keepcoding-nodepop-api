@@ -8,8 +8,7 @@
          "photo":"/images/anuncios/ps4pro.jpg",
          "tags":[  
             "lifestyle"
-         ],
-         "active":true
+         ]
       },
       {  
          "name":"XBOX OneX",
@@ -19,8 +18,7 @@
          "photo":"/images/anuncios/xbox.jpg",
          "tags":[  
             "lifestyle"
-         ],
-         "active":true
+         ]
       },
       {  
          "name":"Raton Gaming Razer Mamba",
@@ -32,8 +30,7 @@
             "lifestyle",
             "work",
             "mobile"
-         ],
-         "active":true
+         ]
       },
       {  
          "name":"Teclado Gaming Razer Chroma",
@@ -45,8 +42,7 @@
             "lifestyle",
             "work",
             "mobile"
-         ],
-         "active":true
+         ]
       },
       {  
          "name":"Gráfica Gaming 1080ti",
@@ -57,8 +53,7 @@
          "tags":[  
             "lifestyle",
             "work"
-         ],
-         "active":true
+         ]
       },
       {  
          "name":"PC Gaming (i7 6700K)",
@@ -69,8 +64,7 @@
          "tags":[  
             "lifestyle",
             "work"
-         ],
-         "active":true
+         ]
       },
       {  
          "name":"Apartamento en Marbella",
@@ -80,8 +74,7 @@
          "photo":"/images/anuncios/apartamento.jpg",
          "tags":[  
             "lifestyle"
-         ],
-         "active":true
+         ]
       },
       {  
          "name":"Calleras Crossfit",
@@ -91,8 +84,7 @@
          "photo":"/images/anuncios/calleras.jpg",
          "tags":[  
             "lifestyle"
-         ],
-         "active":true
+         ]
       },
       {  
          "name":"Comba de Crossfit",
@@ -102,8 +94,7 @@
          "photo":"/images/anuncios/comba.jpg",
          "tags":[  
             "lifestyle"
-         ],
-         "active":true
+         ]
       },
       {  
          "name":"BMW X6 M",
@@ -114,8 +105,7 @@
          "tags":[  
             "lifestyle",
             "motor"
-         ],
-         "active":true
+         ]
       }
    ]
  }

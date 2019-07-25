@@ -9,6 +9,8 @@ module.exports = () => {
     router.get('/anuncios/:id', ItemCtrl.selectOne);
     router.put('/anuncios/:id', ItemCtrl.update);
     router.post('/anuncios/', ItemCtrl.create);
+    // Rutas de tags
+    router.get('/tags/', ItemCtrl.tags);
     // Retorno el router
     return router;
 }

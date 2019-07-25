@@ -3,23 +3,27 @@ const Item = require('../../models/Item');
 
 const ctrl = {};
 
+
 ctrl.select = async (req, res, next) => {
     try {
-        Item.list(req.query, function(error,result) {
+        Item.list(req.query, function(error, results) {
             // Error
             if (error) {
-                res.status(500).json({error});
+                next({
+                    success: false, 
+                    message: error
+                });
                 return;
             }
             // Ok
             res.json({
-                number: result.length,
-                result: result
+                success: true,
+                results: results
             });
         });
     } catch (error) {
         log.fatal(`Error incontrolado: ${error}`);
-        res.status(500).json({error});
+        next({success: false, message: error});
     }
 }
 
@@ -30,17 +34,21 @@ ctrl.selectOne = async (req, res, next) => {
             let item = await Item.findById(req.params.id);   
             if (item) {
                 res.json({
-                    number: 1,
+                    success: false, 
                     result: item
                 });
                 return;
             }   
         } 
-        // Si llegamos aquí es que no seha encontrado un resultado
-        res.status(404).json({error: 'Not found'});
+        // Si llegamos aquí es que no se ha encontrado un resultado
+        next({
+            status: 404,
+            success: false, 
+            message: 'Not Found'
+        });
     } catch (error) {
         log.fatal(`Error incontrolado: ${error}`);
-        res.status(500).json({error});
+        next({success: false, message: error});
     }
 }
 
@@ -48,52 +56,62 @@ ctrl.create = async (req, res, next) => {
     try {
         let item = new Item({...req.body});
         item = await item.save();
-        res.json({
-            status: 'ok',
-            number: 1,
-            result: item
+        if (item) {
+            res.json({
+                success: true, 
+                result: item
+            });
+            return;
+        }
+        // Si se ha llegado hasta aquí es que no se ha podido insertar
+        next({
+            success: false, 
+            message: 'Not created'
         });
+        res.status(500).json({error: 'No se ha podido insertar el anuncio'});
     } catch (error) {
         log.fatal(`Error incontrolado: ${error}`);
-        res.status(500).json({error});
+        next({success: false, message: error});
     }
 }
 
 ctrl.update = async (req, res, next) => {
     try {
         if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-            // Busco el anuncio indicado
-            let item = await Item.findById(req.params.id);
+            // Actualizo el anuncio y retorno el item actualizado
+            let item = await Item.updateItem(req.params.id, new Item({...req.body}));
             if (item) {
-                // Si viene el parametro en el body lo sobreescribo
-                item.name = req.body.name?req.body.name:item.name;
-                item.price = req.body.price?req.body.price:item.price;
-                item.type = req.body.type?req.body.type:item.type;
-                item.photo = req.body.photo?req.body.photo:item.photo;
-                item.tags = req.body.tags?req.body.tags:item.tags;
-                item.description = req.body.description?req.body.description:item.description;
-                item.active = req.body.active?req.body.active:item.active;
-                // Salvo datos en mongo
-                item = await item.save();
-                if (item) {
-                    // Se ha podido grabar el resultado
-                    res.json({
-                        status: 'ok',
-                        number: 1,
-                        result: item
-                    });
-                } else {
-                    res.status(500).json({error: 'No se han podido guardar los cambios'});
-                }
+                res.json({
+                    success: true,
+                    result: item
+                });
                 return;
             }
         }
-        // Si llegamos aquí es que no seha encontrado un resultado
-        res.status(404).json({error: 'Not found'});
+        // Si llegamos aquí es que no se ha encontrado un resultado
+        next({
+            status: 404,
+            success: false, 
+            message: 'Not Found'
+        });
     } catch (error) {
         log.fatal(`Error incontrolado: ${error}`);
-        res.status(500).json({error});
+        next({success: false, message: error});
     }
 }
+
+ctrl.tags = async (req, res, next) => {
+    try {
+        // Esta ruta devuelve los tags existentes en la base de datos, y el contador de apariencias de cada uno
+        res.json({
+            anuncios: 'http://localhost:3001/apiv1/anuncios/',
+            tags: 'http://localhost:3001/apiv1/tags/'
+        });
+    } catch (error) {
+        log.fatal(`Error incontrolado: ${error}`);
+        next({success: false, message: error});
+    }
+}
+
 
 module.exports = ctrl;
