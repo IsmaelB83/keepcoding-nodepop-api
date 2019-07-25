@@ -1,9 +1,11 @@
+'use strict';
 // Node imports
 const path = require('path');
 const morgan = require('morgan');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+
 
 module.exports = function(app) {
     // View engine settings (ejs)
@@ -26,12 +28,18 @@ module.exports = function(app) {
     });
     // error handler
     app.use(function(error, req, res, next) {
+        // Validation error
+        if (error.array) { 
+            error.status = 422;
+            const errInfo = error.array({ onlyFirstError: true })[0];
+            error.message = `Not valid - ${errInfo.param} ${errInfo.msg}`;
+        }
         // status 500 si no se indica lo contrario
         res.status(error.status || 500);
         // Middleware de la API
         if (isAPI(req)) {
             res.json({
-                success: 'true', 
+                success: false, 
                 error: error.message
             });
             return;

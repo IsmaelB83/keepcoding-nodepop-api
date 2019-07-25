@@ -1,5 +1,9 @@
+'use strict';
+// Node imports
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+// Own imports
+const log = require('../utils/log');
 
 /**
 * Anuncio en nodepop
@@ -41,7 +45,14 @@ const ItemSchema = new Schema(
 
 /**
 * Función estática para listar anuncios de la base de datos
-* @param {req.query} query Objecto req.query recibido desde la url
+* @param {String} name Para filtrado por nombre de anuncio
+* @param {String} venta Para filtrado por anuncios de venta o compra
+* @param {String} tag Para filtrado de anuncios con un tag específico
+* @param {String} precio Para filtrado por precios
+* @param {String} limit Para limitar el número de resultados a obtener
+* @param {String} skip Para inidicar el número de resultados a saltar
+* @param {String} fields Campos a obtener de la colección
+* @param {String} sort Criterio de ordenación
 * @param {function} callback Función a llamar al terminar la consulta
 *
 * Ejemplos de fields:
@@ -49,15 +60,15 @@ const ItemSchema = new Schema(
 * http://localhost:3001/apiv1/anuncios?fields=name
 * http://localhost:3001/apiv1/anuncios?fields=-_id
 */
-ItemSchema.statics.list = function(query, callback) {
+ItemSchema.statics.list = function(name, venta, tag, precio, limit, skip, fields, sort, callback) {
     try {
         // Genero filtrado
         let filter = {}
-        if (query.name) filter.name = { '$regex': `^${query.name}`, '$options': 'i' };
-        if (query.venta) filter.type = query.venta==='true'?'sell':'buy';
-        if (query.tag) filter.tags = query.tag.toLowerCase();
-        if (query.precio) {
-            let aux = query.precio.split('-');
+        if (name) filter.name = { '$regex': `^${name}`, '$options': 'i' };
+        if (venta) filter.type = venta==='true'?'sell':'buy';
+        if (tag) filter.tags = tag.toLowerCase();
+        if (precio) {
+            let aux = precio.split('-');
             if (aux.length === 2) {
                 if(aux[0]==='') {
                     filter.price = {'$lte': aux[1]};
@@ -70,19 +81,19 @@ ItemSchema.statics.list = function(query, callback) {
         }
         // Realizo la query a Mongo
         let queryDB = Item.find(filter);
-        queryDB.limit(query.limit);
-        queryDB.skip(query.skip);
-        queryDB.select(query.fields);
+        queryDB.limit(limit);
+        queryDB.skip(skip);
+        queryDB.select(fields);
         // Permitir busquedas de mayor a menor
-        if (query.sort) {       
-            let aux = query.sort.split('-');
+        if (sort) {       
+            let aux = sort.split('-');
             if (aux.length === 2) {
                 let sort = {};
                 sort[aux[0]] = '-1';
                 queryDB.sort(sort);
             } else {
                 // Búsqueda de menor a mayor (por defecto)
-                queryDB.sort(query.sort);
+                queryDB.sort(sort);
             }
         }
         queryDB.exec(callback);        

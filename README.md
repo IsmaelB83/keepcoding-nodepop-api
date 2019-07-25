@@ -1,7 +1,7 @@
 # Practica del módulo de backend node.js de KeepCoding
 
 ### Contents
-- [Introduction](#INTRODUCCION)
+- [Introducción](#INTRODUCCION)
 - [Instalación y ejecución](#INSTALACIÓN-Y-EJECUCIÓN)
   - [Descarga](#Descarga)
   - [Instalación](#Inicialización-de-base-de-datos)

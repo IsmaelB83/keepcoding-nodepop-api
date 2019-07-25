@@ -1,7 +1,10 @@
+'use strict';
 // Node imports
 var moment = require('moment');
 // Own imports
 const Item = require('../models/Item');
+const log = require('../utils/log');
+
 
 const ctrl = {};
 
@@ -10,7 +13,8 @@ moment.locale('es');
 ctrl.index = async (req, res, next) => {
     try {
         // Busco los anuncios en Mongo
-        Item.list(req.query, function(error,result) {
+        Item.list(req.query.name, req.query.venta, req.query.tag, req.query.precio, req.query.limit, 
+            req.query.skip, req.query.fields, req.query.sort, function(error, results) {
             // Error
             if (error) {
                 next({status: 500, message: error});
@@ -18,13 +22,14 @@ ctrl.index = async (req, res, next) => {
             }
             // Ok
             res.render('index.ejs',  {
-                status: 'ok',
-                number: result.length,
-                items: result,
+                success: true,
+                count: results.length,
+                results: results,
                 moment: moment
             });
         });
     } catch (error) {
+        debugger;
         log.fatal(`Error incontrolado: ${error}`);
         next({status: 500, message: error});
     }
@@ -38,8 +43,8 @@ ctrl.detail = async (req, res, next) => {
             if (result) {
                 // Ok
                 res.render('detail.ejs',  {
-                    status: 'ok',
-                    item: result,
+                    success: true,
+                    result: result,
                     moment: moment
                 });
                 return;
@@ -51,5 +56,6 @@ ctrl.detail = async (req, res, next) => {
         next({status: 500, message: error});
     }
 }
+
 
 module.exports = ctrl;

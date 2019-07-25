@@ -18,25 +18,25 @@
       </div>
       <div class='row justify-content-center'>
         <div class='col-xs-12 col-sm-6 col-lg-4 mb-4'>
-          <% if (locals.item) { %>
+          <% if (locals.result) { %>
             <div class="card">
-              <img src="<%= item.type === 'buy' ? '/images/buy.png' : '/images/sell.png' %>" class="card-icon" alt="icon">
-              <img src="<%= item.photo %>" class="card-img-top" alt="...">
-              <span class="price"><%= item.price.toFixed(2) %> €</span>
+              <img src="<%= result.type === 'buy' ? '/images/buy.png' : '/images/sell.png' %>" class="card-icon" alt="icon">
+              <img src="<%= result.photo %>" class="card-img-top" alt="...">
+              <span class="price"><%= result.price.toFixed(2) %> €</span>
               <div class="card-body text-justify">
                   <h5 class="card-title text-uppercase mb-1 font-weight-bold">
-                    <%= item.name %> 
+                    <%= result.name %> 
                   </h5>
-                  <p class="card-text text-black-50"><small><%= item.description %></small></p>
+                  <p class="card-text text-black-50"><small><%= result.description %></small></p>
               </div>
               <div class="card-footer text-muted py-1 px-2">
                 <p class="card-text mb-1">
-                  <% for(let j=0; j<item.tags.length; j++) { %>
-                    <span class="badge badge-<%=item.tags[j]%>"><%=item.tags[j]%></span>
+                  <% for(let j=0; j<result.tags.length; j++) { %>
+                    <span class="badge badge-<%=result.tags[j]%>"><%=result.tags[j]%></span>
                   <% } %>
                 </p>
                 <small id="passwordHelpInline" class="text-muted">
-                  Anuncio creado <%= moment(item.createdAt).fromNow(); %>
+                  Anuncio creado <%= moment(result.createdAt).fromNow(); %>
                 </small>
               </div>
             </div>

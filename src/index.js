@@ -1,3 +1,4 @@
+'use strict';
 // Node imports
 const express = require('express');
 const http = require('http');
@@ -5,6 +6,7 @@ const http = require('http');
 const Config = require('./config');
 const database = require('./database');
 const server = require('./app');
+const log = require('./utils/log');
 
 // Crear aplicación express y arrancar el server
 const app = server(express());

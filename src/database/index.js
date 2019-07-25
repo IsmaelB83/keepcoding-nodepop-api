@@ -1,6 +1,7 @@
-// Import node modules
+'use strict';
+// Node imports
 const mongoose = require('mongoose');
-// Import own modules
+// Own imports
 const log = require('../utils/log');
 
 
