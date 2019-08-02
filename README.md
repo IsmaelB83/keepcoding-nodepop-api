@@ -6,6 +6,7 @@
   - [Descarga](#Descarga)
   - [Instalación](#Inicialización-de-base-de-datos)
   - [Ejecución](#Ejecución)
+  - [Configuración](#Configuración)
 - [REST API](#REST-API)
   - [Anuncios](#Anuncios)
   - [Anuncios Schema](#Anuncios-schema)
@@ -59,6 +60,18 @@ Para arrancar la API y la web utilizaremos npm start
 \downloads\keepcoding-backend-node\npm start
 ```
 
+## Configuración
+
+En el fichero ubicado en /src/config.js puedes configurar en que puerto escuchará la aplicación node JS (3001 para http y 8443 para https). Para cambiar a HTTPS se debe indicar adicionalmente el valor 1
+en el parámetro http_type (IMPORTANTE: el funcionamiento sobre HTTPS no está implementado todavía). Adicionalmente mediante el parámetro mongodb puedes configurar la cadena de conexión a la base de datos
+mongo sobre la que conectar. En el fichero que se suministra a modo de ejemplo se asume que el servicio de mongo está funcionando en la misma máquina que la aplicación node.
+```js
+module.exports = {
+  http_type: 0, 
+  ports: [3001, 8443],
+  mongodb: "mongodb://localhost:27017/nodepop"
+}
+```
 ### REST API
 
 ## Anuncios
