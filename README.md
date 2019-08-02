@@ -12,6 +12,7 @@
   - [Obtener todos los anuncios](#Obtener-todos-los-anuncios)
   - [Obtener un único anuncio](#Obtener-un-único-anuncio)
   - [Filtrado de anuncios](#Filtrado-de-anuncios)
+  - [Listado de tags](#Listado-de-tags)
   - [Crear un anuncio](#Crear-un-anuncio)
   - [Actualizar un anuncio](#Actualizar-un-anuncio)
 - [Web](#location)
@@ -132,16 +133,16 @@ en el siguiente formato `<query>=<value>`. Si necesitas encadenar varias consult
 
 Ejemplos de consultas:
 - Todos los anuncios que contienen el `tag` lifestyle: http://localhost:3001/apiv1/anuncios?tag=lifestyle: 
-- Todos los anuncios con `precio` entre 1 y 100: http://localhost:3001/apiv1/anuncios?precio=1-100
-- Las dos consultas anteriores combinadas: http://localhost:3001/apiv1/anuncios?tag=lifestyle&precio=1-100
-- Precio entre 1 y 100 de anuncios que empiecen por 'Com': http://localhost:3001/apiv1/anuncios?precio=1-100&name=Com
+- Todos los anuncios con `price` entre 1 y 100: http://localhost:3001/apiv1/anuncios?price=1-100
+- Las dos consultas anteriores combinadas: http://localhost:3001/apiv1/anuncios?tag=lifestyle&price=1-100
+- Precio entre 1 y 100 de anuncios que empiecen por 'Com': http://localhost:3001/apiv1/anuncios?price=1-100&name=Com
 - Sólo los anuncios de venta: http://localhost:3001/apiv1/anuncios?venta=true
 - Sólo los anuncios de compra: http://localhost:3001/apiv1/anuncios?venta=false
 
 
 Los parámetros disponibles para filtrado son:
 - `name`: filtrado por los que empiecen con el string indicado (la API NO es case sensitive).
-- `precio`: filtrar por precio. Entre un rango x-y, menores a un precio x-,  o mayores a un precio -y.
+- `price`: filtrar por precio. Entre un rango x-y, menores a un precio x-, o mayores a un precio -y.
 - `tag`: permite filtrar los anuncios que tengan el tag indicado. Dentro de los posibles (`work`, `lifestyle`, `motor`, `mobile`).
 - `venta`: permite filtrar por anuncios de venta (=true), o anuncios de compra (=false)
 - `skip`: permite saltar resultados (utilizado para paginar junto con limit)
@@ -150,7 +151,7 @@ Los parámetros disponibles para filtrado son:
 
 *Ejemplo de consulta*
 ```
-http://localhost:3001/apiv1/anuncios?precio=1-100&venta=false
+http://localhost:3001/apiv1/anuncios?price=1-100&venta=false
 ```
 ```js
 {
@@ -200,6 +201,26 @@ http://localhost:3001/apiv1/anuncios?precio=1-100&venta=false
       "createdAt": "2019-07-25T20:00:31.945Z",
       "updatedAt": "2019-07-25T20:00:31.945Z"
     }
+  ]
+}
+```
+
+### Listado de tags
+Puedes obtener un listado de los tags existentes en la base de datos mediante el recurso /tag de la API: http://127.0.0.1:3001/apiv1/tags
+
+*Ejemplo de consulta*
+```
+http://127.0.0.1:3001/apiv1/tags
+```
+```js
+{
+  "success": true,
+  "count": 4,
+  "results": [
+    "lifestyle",
+    "mobile",
+    "motor",
+    "work"
   ]
 }
 ```

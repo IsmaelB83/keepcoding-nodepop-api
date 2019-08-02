@@ -32,7 +32,7 @@ module.exports = function(app) {
         if (error.array) { 
             error.status = 422;
             const errInfo = error.array({ onlyFirstError: true })[0];
-            error.message = `Not valid - ${errInfo.param} ${errInfo.msg}`;
+            error.error = `No válido - ${errInfo.param} ${errInfo.msg}`;
         }
         // status 500 si no se indica lo contrario
         res.status(error.status || 500);
@@ -40,12 +40,12 @@ module.exports = function(app) {
         if (isAPI(req)) {
             res.json({
                 success: false, 
-                error: error.message
+                error: error
             });
             return;
         }
         // set locals, only providing error in development
-        res.locals.message = error.message;
+        res.locals.message = error;
         res.locals.error = req.app.get('env') === 'development' ? error : {};
         // render the error page
         res.render('error', {error});

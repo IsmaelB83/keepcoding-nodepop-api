@@ -1,9 +1,10 @@
 'use strict';
 // Node imports
 var moment = require('moment');
+const { validationResult } = require('express-validator');
 // Own imports
 const Item = require('../models/Item');
-const log = require('../utils/log');
+const Log = require('../utils/log');
 
 
 const ctrl = {};
@@ -12,14 +13,16 @@ moment.locale('es');
 
 ctrl.index = async (req, res, next) => {
     try {
+        // Validaciones
+        validationResult(req).throw();
         // Busco los anuncios en Mongo
-        Item.list(req.query.name, req.query.venta, req.query.tag, req.query.precio, req.query.limit, 
-            req.query.skip, req.query.fields, req.query.sort, function(error, results) {
+        Item.list(req.query.name, req.query.venta, req.query.tag, req.query.price, parseInt(req.query.limit),
+            parseInt(req.query.skip), req.query.fields, req.query.sort, function(error, results) {
             // Error
             if (error) {
-                next({status: 500, message: error});
+                next({error});
                 return;
-            }
+            } 
             // Ok
             res.render('index.ejs',  {
                 success: true,
@@ -29,31 +32,33 @@ ctrl.index = async (req, res, next) => {
             });
         });
     } catch (error) {
-        debugger;
-        log.fatal(`Error incontrolado: ${error}`);
-        next({status: 500, message: error});
+        // Los errores de validación de usuario NO me interesa loguerarlos
+        if (!error.array) Log.fatal(`Error incontrolado: ${error}`);
+        next(error);
     }
 }
 
 ctrl.detail = async (req, res, next) => {
     try {
+        // Validaciones
+        validationResult(req).throw();
         // Busco el anuncio por ID
-        if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-            let result = await Item.findById(req.params.id);
-            if (result) {
-                // Ok
-                res.render('detail.ejs',  {
-                    success: true,
-                    result: result,
-                    moment: moment
-                });
-                return;
-            }
+        let result = await Item.findById(req.params.id);
+        if (result) {
+            // Ok
+            res.render('detail.ejs',  {
+                success: true,
+                result: result,
+                moment: moment
+            });
+            return;
         }
-        next({status: 404, message: 'Not found'});
+        // Si llego aquí es que no se encontró nada
+        next({status: 404, error: 'Not found'});
     } catch (error) {
-        log.fatal(`Error incontrolado: ${error}`);
-        next({status: 500, message: error});
+        // Los errores de validación de usuario NO me interesa loguerarlos
+        if (!error.array) Log.fatal(`Error incontrolado: ${error}`);
+        next(error);
     }
 }
 

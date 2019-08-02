@@ -1,18 +1,22 @@
 'use strict';
 // Own imports
-const Item = require('../../models/Item');
+const { validationResult } = require('express-validator');
 // Node imports
-const log = require('../../utils/log');
+const Item = require('../../models/Item');
+const Log = require('../../utils/log');
 
 const ctrl = {};
 
 ctrl.select = async (req, res, next) => {
     try {
-        Item.list(req.query.name, req.query.venta, req.query.tag, req.query.precio, req.query.limit, 
-            req.query.skip, req.query.fields, req.query.sort, function(error, results) {
+        // Validaciones
+        validationResult(req).throw();
+        // Listado
+        Item.list(req.query.name, req.query.venta, req.query.tag, req.query.price, parseInt(req.query.limit), 
+            parseInt(req.query.skip), req.query.fields, req.query.sort, function(error, results) {
             // Error
             if (error) {
-                next({message: error});
+                next({error});
                 return;
             }
             // Ok
@@ -23,37 +27,38 @@ ctrl.select = async (req, res, next) => {
             });
         });
     } catch (error) {
-        log.fatal(`Error incontrolado: ${error}`);
-        next({message: error});
+        // Los errores de validación de usuario NO me interesa loguerarlos
+        if (!error.array) Log.fatal(`Error incontrolado: ${error}`);
+        next(error);
     }
 }
 
 ctrl.selectOne = async (req, res, next) => {
     try {
-        // Busco haciendo uso de findById. Hago un regex previo para evitar errores de mongoose
-        if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-            let item = await Item.findById(req.params.id);   
-            if (item) {
-                res.json({
-                    success: true, 
-                    result: item
-                });
-                return;
-            }   
-        } 
+        // Validaciones
+        validationResult(req).throw();
+        let item = await Item.findById(req.params.id);   
+        if (item) {
+            res.json({
+                success: true, 
+                result: item
+            });
+            return;
+        }   
         // Si llegamos aquí es que no se ha encontrado un resultado
-        next({
-            status: 404,
-            message: 'Not Found'
-        });
+        next({ status: 404, error: 'Not Found' });
     } catch (error) {
-        log.fatal(`Error incontrolado: ${error}`);
-        next({message: error});
+        // Los errores de validación de usuario NO me interesa loguerarlos
+        if (!error.array) Log.fatal(`Error incontrolado: ${error}`);
+        next(error);
     }
 }
 
 ctrl.create = async (req, res, next) => {
     try {
+        // Validaciones
+        validationResult(req).throw();
+        // Nuevo anuncio
         let item = new Item({...req.body});
         item = await item.save();
         if (item) {
@@ -64,42 +69,54 @@ ctrl.create = async (req, res, next) => {
             return;
         }
         // Si se ha llegado hasta aquí es que no se ha podido insertar
-        next({message: 'Not created'});
-        res.status(500).json({error: 'No se ha podido insertar el anuncio'});
+        next({error: 'No se ha podido insertar el anuncio'});
     } catch (error) {
-        log.fatal(`Error incontrolado: ${error}`);
-        next({message: error});
+        // Los errores de validación de usuario NO me interesa loguerarlos
+        if (!error.array) Log.fatal(`Error incontrolado: ${error}`);
+        next(error);
     }
 }
 
 ctrl.update = async (req, res, next) => {
     try {
-        if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-            // Actualizo el anuncio y retorno el item actualizado
-            let item = await Item.updateItem(req.params.id, new Item({...req.body}));
-            if (item) {
-                res.json({
-                    success: true,
-                    result: item
-                });
-                return;
-            }
+        // Validaciones
+        validationResult(req).throw();
+        // Actualizo el anuncio y retorno el item actualizado
+        let item = await Item.updateItem(req.params.id, new Item({...req.body}));
+        if (item) {
+            res.json({
+                success: true,
+                result: item
+            });
+            return;
         }
         // Si llegamos aquí es que no se ha encontrado un resultado
-        next({ status: 404, message: 'Not Found' });
+        next({ status: 404, error: 'Not Found' });
     } catch (error) {
-        log.fatal(`Error incontrolado: ${error}`);
-        next({message: error});
+        // Los errores de validación de usuario NO me interesa loguerarlos
+        if (!error.array) Log.fatal(`Error incontrolado: ${error}`);
+        next(error);
     }
 }
 
 ctrl.tags = async (req, res, next) => {
     try {
-        // Esta ruta devuelve los tags existentes en la base de datos, y el contador de apariencias de cada uno
-        next({ status: 404, message: 'Not Found' });
+        // Listado
+        let results = await Item.find().distinct('tags');
+        if (results) {
+            res.json({
+                success: true,
+                count: results.length,
+                results: results
+            });
+            return;
+        }
+        // Si llegamos aquí es que no se ha encontrado un resultado
+        next({ status: 404, error: 'Not Found' });
     } catch (error) {
-        log.fatal(`Error incontrolado: ${error}`);
-        next({message: error});
+        // Los errores de validación de usuario NO me interesa loguerarlos
+        if (!error.array) Log.fatal(`Error incontrolado: ${error}`);
+        next(error);
     }
 }
 

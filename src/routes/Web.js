@@ -1,21 +1,35 @@
 'use strict';
 // Node imports
 const express = require('express');
-const { check } = require('express-validator');
+const { query, param } = require('express-validator');
 // Own imports
 const WebCtrl = require('../controllers/Web');
 
 
 module.exports = () => {
     const router = express.Router();
-    // Rutas de anuncios
+    
+    // Obtener y filtrar sobre el listado de anuncios
     router.get('/', [
-        check('name').isLength({max: 30}).withMessage('máximo 30 caracteres'),
-        check('description').isLength({max: 100}).withMessage('máximo 100 caracteres'),
-        check('skip').isNumeric({max: 100}).withMessage('must be numeric'),
-        check('limit').isNumeric({max: 100}).withMessage('must be numeric')
-    ], WebCtrl.index);
-    router.get('/:id', WebCtrl.detail);
+        query('name').optional().isLength({min:1, max: 30}).withMessage('debe estar entre 1 y 30 carácteres'),
+        query('price').optional().custom(value => {
+            let aux = value.split('-');
+            let result = true;
+            for (let i = 0; i < aux.length; i++) {
+                if (aux[i] && isNaN(+aux[i])) {
+                    result = false;
+                }
+            }
+            return result;
+        }).withMessage('debe ser numérico'),
+        query('skip').optional().isInt({ gt: 0 }).withMessage('debe ser un numero entero mayor que 0'),
+        query('limit').optional().isInt({ gt: 0 }).withMessage('debe ser un numero entero mayor que 0'),
+    ], WebCtrl.index); 
+    // Obtener un anuncio por su ID
+    router.get('/:id', [
+        param('id').matches(/^[0-9a-fA-F]{24}$/).withMessage('presenta un formato incorrecto'),
+    ], WebCtrl.detail);
+
     // Retorno el router
     return router;
 }
