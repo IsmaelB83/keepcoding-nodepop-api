@@ -1,7 +1,10 @@
 'use strict';
 
 module.exports = {
-  http_type: 0, 
-  ports: [3001, 8443],
-  mongodb: "mongodb://localhost:27017/nodepop"
+  http: ['HTTP','HTTPS'], 
+  ports: [8080, 8443],
+  mongodb: "mongodb://localhost:27017/nodepop",
+  privateKey: `/etc/letsencrypt/live/autodeluxegarage.es/privkey.pem`,
+  certificate: `/etc/letsencrypt/live/autodeluxegarage.es/cert.pem`,
+  ca: `/etc/letsencrypt/live/autodeluxegarage.es/chain.pem`,
 }
