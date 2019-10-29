@@ -36,7 +36,6 @@ async function initServer() {
         if (!CONFIG.HTTPS) {
             server = http.createServer(app);
         } else {
-            console.log(CONFIG);
             const privateKey = fs.readFileSync(Config.privateKey, 'utf8');
             const certificate = fs.readFileSync(Config.certificate, 'utf8');
             const ca = fs.readFileSync(Config.ca, 'utf8');
@@ -49,7 +48,6 @@ async function initServer() {
         }
         // Arranco el server
         server.listen(CONFIG.PORT, () => {
-            console.log(CONFIG);
             log.info(`OK - ${CONFIG.HTTPS?'HTTPS':'HTTP'} Server running on port ${CONFIG.PORT}`);
         });        
     } catch (error) {

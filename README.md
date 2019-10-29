@@ -62,7 +62,7 @@ Para arrancar la API y la web utilizaremos npm start. Arrancando de esta forma (
 
 Para arrancar el servidor en un puerto distinto, y en modo HTTPS debemos indicar dos parametros al script de arranque: HTTPS y PORT. El siguiente comando arranca el server en modo https a la escucha en el puerto 443.
 ```
-\downloads\keepcoding-backend-node\HTTPS=1 PORT=443 npm start
+\downloads\keepcoding-backend-node\HTTPS=Y PORT=443 npm start
 ```
 
 ## Configuración
