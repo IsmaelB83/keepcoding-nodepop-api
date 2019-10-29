@@ -50,7 +50,7 @@ async function initServer() {
         // Arranco el server
         server.listen(CONFIG.PORT, () => {
             console.log(CONFIG);
-            log.info(`OK - ${CONFIG.TYPE?'HTTP':'HTTPS'} Server running on port ${CONFIG.PORT}`);
+            log.info(`OK - ${!CONFIG.TYPE?'HTTP':'HTTPS'} Server running on port ${CONFIG.PORT}`);
         });        
     } catch (error) {
         // Error no controlado
