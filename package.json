@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "init": "node ./src/database/install_db.js",
-    "start": "node ./src/index.js",
+    "start": "node ./src/index.js $TYPE $PORT",
     "debug": "nodemon ./src/index.js"
   },
   "repository": {

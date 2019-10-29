@@ -55,23 +55,30 @@ Inicializa la base de datos mongo. Esto borrará la colección "item" de la base
 
 ## Ejecución
 
-Para arrancar la API y la web utilizaremos npm start
+Para arrancar la API y la web utilizaremos npm start. Arrancando de esta forma (sin parámetros), el servidor se arrancará por defecto en modo HTTP escuchando en el puerto 8080.
 ```
 \downloads\keepcoding-backend-node\npm start
 ```
 
+Para arrancar el servidor en un puerto distinto, y en modo HTTPS debemos indicar dos parametros al script de arranque: HTTPS y PORT. El siguiente comando arranca el server en modo https a la escucha en el puerto 443.
+```
+\downloads\keepcoding-backend-node\HTTPS=Y PORT=443 npm start
+```
+
 ## Configuración
 
-En el fichero ubicado en /src/config.js puedes configurar en que puerto escuchará la aplicación node JS (3001 para http y 8443 para https). Para cambiar a HTTPS se debe indicar adicionalmente el valor 1
-en el parámetro http_type (IMPORTANTE: el funcionamiento sobre HTTPS no está implementado todavía). Adicionalmente mediante el parámetro mongodb puedes configurar la cadena de conexión a la base de datos
-mongo sobre la que conectar. En el fichero que se suministra a modo de ejemplo se asume que el servicio de mongo está funcionando en la misma máquina que la aplicación node.
+En el fichero ubicado en /src/config.js se pueden configurar diversos parámetros de la aplicación como son: puertos por defecto (8080/8443), la url de conexión a mongodb, y las rutas de los certificados en caso
+de querer instanciar un server https.
 ```js
 module.exports = {
-  http_type: 0, 
-  ports: [3001, 8443],
-  mongodb: "mongodb://localhost:27017/nodepop"
+  ports: [8080, 8443],
+  mongodb: "mongodb://localhost:27017/nodepop",
+  privateKey: `/etc/letsencrypt/live/autodeluxegarage.es/privkey.pem`,
+  certificate: `/etc/letsencrypt/live/autodeluxegarage.es/cert.pem`,
+  ca: `/etc/letsencrypt/live/autodeluxegarage.es/chain.pem`,
 }
 ```
+
 ### REST API
 
 ## Anuncios
