@@ -36,6 +36,7 @@ async function initServer() {
         if (CONFIG.TYPE === '0') {
             server = http.createServer(app);
         } else {
+            console.log(CONFIG);
             const privateKey = fs.readFileSync(Config.privateKey, 'utf8');
             const certificate = fs.readFileSync(Config.certificate, 'utf8');
             const ca = fs.readFileSync(Config.ca, 'utf8');
