@@ -11,16 +11,10 @@ const server = require('./app');
 const log = require('./utils/log');
 
 // Configuración del servidor indicada por parámetros de usuario?
-const CONFIG = {};
-if (process.env.TYPE && process.env.PORT) {
-    // Configuración pasada como parmetros?
-    CONFIG.TYPE = process.env.TYPE || 0, 
-    CONFIG.PORT = process.env.PORT || CONFIG.PORT
-} else {
-    // Configuración por defecto
-    CONFIG.TYPE = 0;
-    CONFIG.PORT = Config.ports[CONFIG.TYPE];
-}
+const CONFIG = {
+    TYPE = process.env.TYPE || 0, 
+    PORT = process.env.PORT || Config.ports[CONFIG.TYPE]
+};
 
 // Crear aplicación express y arrancar el server
 const app = server(express());
