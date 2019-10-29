@@ -57,12 +57,12 @@ Inicializa la base de datos mongo. Esto borrará la colección "item" de la base
 
 Para arrancar la API y la web utilizaremos npm start. Arrancando de esta forma (sin parámetros), el servidor se arrancará por defecto en modo HTTP escuchando en el puerto 8080.
 ```
-\downloads\keepcoding-backend-node\TYPE=1 PORT=3001 npm start
+\downloads\keepcoding-backend-node\npm start
 ```
 
-Para arrancar el servidor en un puerto distinto, y en modo HTTPS debemos indicar dos parametros al script de arranque:
+Para arrancar el servidor en un puerto distinto, y en modo HTTPS debemos indicar dos parametros al script de arranque: HTTPS y PORT. El siguiente comando arranca el server en modo https a la escucha en el puerto 443.
 ```
-\downloads\keepcoding-backend-node\npm start
+\downloads\keepcoding-backend-node\HTTPS=1 PORT=443 npm start
 ```
 
 ## Configuración
