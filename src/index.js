@@ -12,7 +12,7 @@ const log = require('./utils/log');
 
 // Configuración del servidor indicada por parámetros de usuario?
 const CONFIG = {
-    TYPE: process.env.TYPE || 0,
+    TYPE: process.env.TYPE || '0',
     PORT: process.env.PORT || Config.ports[0]
 };
 
@@ -33,7 +33,7 @@ async function initServer() {
         }
         // Si se conecto a mongo se continua con la inicialización del server express
         let server;
-        if (CONFIG.TYPE === 0) {
+        if (CONFIG.TYPE === '0') {
             server = http.createServer(app);
         } else {
             const privateKey = fs.readFileSync(Config.privateKey, 'utf8');
