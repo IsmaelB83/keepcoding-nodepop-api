@@ -12,8 +12,8 @@ const log = require('./utils/log');
 
 // Configuración del servidor indicada por parámetros de usuario?
 const CONFIG = {
-    TYPE = process.env.TYPE || 0, 
-    PORT = process.env.PORT || Config.ports[CONFIG.TYPE]
+    TYPE: process.env.TYPE || 0,
+    PORT: process.env.PORT || Config.ports[CONFIG.TYPE]
 };
 
 // Crear aplicación express y arrancar el server
