@@ -12,7 +12,7 @@ const log = require('./utils/log');
 
 // Configuración del servidor indicada por parámetros de usuario?
 const CONFIG = {
-    TYPE: process.env.TYPE || '0',
+    TYPE: process.env.TYPE,
     PORT: process.env.PORT || Config.ports[0]
 };
 
@@ -33,7 +33,7 @@ async function initServer() {
         }
         // Si se conecto a mongo se continua con la inicialización del server express
         let server;
-        if (CONFIG.TYPE === '0') {
+        if (!CONFIG.TYPE) {
             server = http.createServer(app);
         } else {
             console.log(CONFIG);
@@ -49,7 +49,7 @@ async function initServer() {
         }
         // Arranco el server
         server.listen(CONFIG.PORT, () => {
-            log.info(`OK - ${CONFIG.TYPE===0?'HTTP':'HTTPS'} Server running on port ${CONFIG.PORT}`);
+            log.info(`OK - ${CONFIG.TYPE?'HTTP':'HTTPS'} Server running on port ${CONFIG.PORT}`);
         });        
     } catch (error) {
         // Error no controlado
