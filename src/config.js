@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = {
-  http: ['HTTP','HTTPS'], 
   ports: [8080, 8443],
   mongodb: "mongodb://localhost:27017/nodepop",
   privateKey: `/etc/letsencrypt/live/autodeluxegarage.es/privkey.pem`,
