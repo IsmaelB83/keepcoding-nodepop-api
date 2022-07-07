@@ -39,7 +39,7 @@
     "ejs": "^2.6.2",
     "express": "^4.17.1",
     "express-validator": "^6.1.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "simple-node-logger": "^18.12.23",
